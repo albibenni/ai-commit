@@ -62,7 +62,7 @@ export function closePrompt(): void {
 }
 
 // ==== Process Management ====
-export function run(fn: Function) {
+export function run(fn: () => Promise<void>) {
   process.on("SIGINT", () => {
     closePrompt();
     process.exit(0);

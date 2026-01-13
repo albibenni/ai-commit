@@ -3,9 +3,8 @@ import {
   confirmAndCommit,
   getCommitMessage,
   run,
-  selectCommitType,
 } from "./common.ts";
-import { getCommitTypeFromMessage, improveCommitMessage } from "./utils";
+import { getCommitTypeFromMessage, improveCommitMessage } from "./utils.ts";
 
 async function main() {
   console.log("\n🚀 Conventional Commit Generator\n");
