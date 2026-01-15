@@ -7,6 +7,7 @@ import {
   tool,
   type ToolSet,
   wrapLanguageModel,
+  streamText,
 } from "ai";
 import { execSync } from "node:child_process";
 import z from "zod";
@@ -29,7 +30,7 @@ const tools: ToolSet = {
 };
 
 export async function improveCommitMessage(message: string): Promise<string> {
-  const improvedMessage = await generateText({
+  const streamImprovedMessage = streamText({
     model,
     tools,
     prompt: `
@@ -39,7 +40,14 @@ export async function improveCommitMessage(message: string): Promise<string> {
     stopWhen: stepCountIs(5), // stop after a maximum of 5 steps if tools were called
   });
 
-  return improvedMessage.text;
+  let text = "";
+  for await (const chunk of streamImprovedMessage.textStream) {
+    process.stdout.write(chunk);
+    text += chunk;
+  }
+
+  process.stdout.write("\n");
+  return text.trim();
 }
 
 export function executeGitDiff(): string {
