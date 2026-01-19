@@ -78,6 +78,7 @@ export function run(fn: () => Promise<void>) {
 }
 
 // ==== Git Commit Functions ====
+// TODO: select commits and give them to the context
 export function runCommit(message: string): void {
   spawnSync("git", ["add", "-A"], { stdio: "inherit" });
   const result = spawnSync("git", ["commit", "-F", "-"], {
