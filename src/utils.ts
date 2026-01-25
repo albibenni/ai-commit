@@ -56,7 +56,7 @@ export function executeGitDiff(): string {
   // --no-textconv: disable text conversion filters
   // --no-renames: treat renames as delete+add (simpler for LLM)
   const command =
-    "git --no-pager diff --no-color --minimal --ignore-all-space --ignore-blank-lines --no-ext-diff --no-textconv --no-renames";
+    "git --no-pager diff --no-color --minimal --ignore-all-space --ignore-blank-lines --no-ext-diff --no-textconv --no-renames --staged";
   return execSync(command).toString();
 }
 
